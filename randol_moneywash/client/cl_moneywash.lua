@@ -68,7 +68,7 @@ function DirtyDan()
                     event = "randol_moneywash:server:checkforbills",
                     icon = "fa-solid fa-sack-dollar",
                     label = "Exchange Bills",
-                    item = "markedbills",
+                    -- item = "markedbills",
                 },
             },
             distance = 1.5,
@@ -81,7 +81,7 @@ RegisterNetEvent('randol_moneywash:client:exchangebills')
 AddEventHandler('randol_moneywash:client:exchangebills', function(ServerDataWorth)
     local ped = PlayerPedId()
     TriggerEvent('animations:client:EmoteCommandStart', {"windowshop"})
-    QBCore.Functions.Progressbar("cleanbills", "Exchanging marked bills..", 10000, false, false, {
+    QBCore.Functions.Progressbar("cleanbills", "Exchanging bills..", 10000, false, false, {
         disableMovement = true,
         disableCarMovement = true,
         disableMouse = false,

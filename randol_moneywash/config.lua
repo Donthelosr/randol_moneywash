@@ -1,6 +1,6 @@
 Config = {}
 
-Config.UseFee = false -- Use a percentage cut. (true = yes/ false = no). Percentage set below.
+Config.UseFee = true -- Use a percentage cut. (true = yes/ false = no). Percentage set below.
 
 Config.Percentage = 10 -- Will deduct 10% of total worth.
 

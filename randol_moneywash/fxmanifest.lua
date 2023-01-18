@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'Randolio | Contributor: AJ <3'
+author 'Randolio | Contributor: Donthelosr'
 
 shared_scripts {
     'config.lua'

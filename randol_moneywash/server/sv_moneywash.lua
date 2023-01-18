@@ -18,19 +18,25 @@ AddEventHandler("randol_moneywash:server:checkforbills", function()
 
     for slot, data in pairs(Player.PlayerData.items) do
         if data ~= nil then
-            if data.name == 'markedbills' then
-                ServerDataWorth = ServerDataWorth + (data.info.worth * data.amount)
+            if data.name == 'rolls' then
+                ServerDataWorth = 100 * data.amount
                 amount = amount + data.amount
-                Player.Functions.RemoveItem('markedbills', data.amount, slot)
+                Player.Functions.RemoveItem('rolls', data.amount, slot)
+            -- elseif data.name == 'bands' then
+            --         ServerDataWorth = 1000 * data.amount
+            --         amount = amount + data.amount
+            --         Player.Functions.RemoveItem('bands', data.amount, slot)
             end
         end
     end
 
     
         if ServerDataWorth > 0 and amount > 0 then
-            TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['markedbills'], "remove", amount)
+            -- TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items['bands'], "remove", amount)
             TriggerClientEvent('randol_moneywash:client:exchangebills', src, ServerDataWorth)
-            TriggerClientEvent('QBCore:Notify', src, 'Please wait. Exchanging '..amount..' marked bills for clean cash.')
+            TriggerClientEvent('QBCore:Notify', src, 'Please wait. Exchanging '..amount..' rolls for clean cash.')
+        else 
+            TriggerClientEvent('QBCore:Notify', src, "You don't have any rolls.")
         end
 
 end)
@@ -42,13 +48,13 @@ AddEventHandler("randol_moneywash:server:returncleancash", function(ServerDataWo
     local Player = QBCore.Functions.GetPlayer(src)
     local finalworth = ServerDataWorth
     local fee = PercentageCut(Config.Percentage, finalworth)
-    local floored = math.floor(finalworth - fee)
+    local floored = finalworth - fee
 
     if Config.UseFee then
-        Player.Functions.AddMoney('cash', floored)
+        Player.Functions.AddMoney('cash', floored, 'roll washing')
         TriggerClientEvent('QBCore:Notify', src, 'You received $'..floored..' after the '..Config.Percentage..'% washing fee.', 'success')
     else
-        Player.Functions.AddMoney('cash', finalworth)
+        Player.Functions.AddMoney('cash', finalworth, 'roll washing')
         TriggerClientEvent('QBCore:Notify', src, 'You received $'..finalworth..' in return.', 'success')
     end
 end)
